@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {getItem, removeItem, setItem} from "./utils";
-import {KeyType, RemoveArgsType, SetValueCallbackType, UseLocalStorageReturnType, ValueType} from "./types";
+import {KeyType, RemoveArgsType, UseLocalStorageReturnType, ValueType} from "./types";
+import {SetValueCallbackType} from "../types";
 
 
 /**

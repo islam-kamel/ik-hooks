@@ -1,56 +1,27 @@
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import ikLogo from './assets/logo-light.svg'
 import './App.css'
-import {useLocalStorage} from "ik-hooks";
-import {useCallback} from "react";
-
+import UseLocalStorage from "./components/UseLocalStorage.tsx";
+import UseToggle from "./components/UseToggle.tsx";
 
 function App() {
-    const [count, setCount, remove] = useLocalStorage('count', 0)
-
-    const onReset = useCallback(() => {
-        remove()
-    }, [])
-
-    const onRemove = useCallback(() => {
-        remove({reset: false})
-    }, [])
-
     return (
         <>
             <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
+                <a href="https://github.com/islam-kamel/ik-hooks" target="_blank">
+                    <img src={ikLogo} className="logo" alt="ik-logo logo"/>
                 </a>
                 <a href="https://react.dev" target="_blank">
                     <img src={reactLogo} className="logo react" alt="React logo"/>
                 </a>
             </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => {
-                    setCount(prev => {
-                        return prev + 1
-                    })
-                }}>
-                    count is {count}
-                </button>
-                <button
-                    onClick={onReset}
-                >
-                    Rest
-                </button>
-                <button
-                    onClick={onRemove}
-                >
-                    Remove
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
+            <h1>IK Hooks</h1>
+            <section><UseLocalStorage/></section>
+            <hr/>
+            <section><UseToggle/></section>
+            <p className="quote">
+                Welcome! Feel free to open an issue or submit a pull request for new features, bug fixes, or
+                improvements. Please ensure that your code adheres to the existing coding style and conventions.
             </p>
         </>
     )
