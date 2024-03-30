@@ -34,7 +34,7 @@ jobs:
       - name: Install Deps
         run: cd example && yarn install
       - name: build
-        run: cd example && yarn build
+        run: cd example && npm link ../. yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
