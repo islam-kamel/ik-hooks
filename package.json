@@ -1,7 +1,7 @@
 {
   "name": "ik-hooks",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "IK hooks is a collection of custom React hooks designed to enhance your development experience by providing useful utilities for common tasks",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/islam-kamel/ik-hooks.git"
+    "url": "https://github.com/islam-kamel/ik-hooks"
   },
   "keywords": [
     "ik hooks",
@@ -57,6 +57,5 @@
     "ts-jest": "^29.1.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
-  },
-  "dependencies": {}
+  }
 }

@@ -989,7 +989,7 @@ ignore@^5.2.0, ignore@^5.2.4:
   integrity sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==
 
 "ik-hooks@file:..":
-  version "0.1.0"
+  version "0.2.1"
   resolved "file:.."
 
 import-fresh@^3.2.1:
