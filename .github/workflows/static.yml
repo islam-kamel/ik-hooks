@@ -41,11 +41,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          entrypoint: './example'
-          path: './build'
+          path: './example/build'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          entrypoint: './example'
-          source: "./build"
+          source: "./example/build"
