@@ -1,10 +1,12 @@
 {
   "name": "ik-hooks",
   "private": false,
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "IK hooks is a collection of custom React hooks designed to enhance your development experience by providing useful utilities for common tasks",
   "publishConfig": {
-    "tag": "pre-release"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
   },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
