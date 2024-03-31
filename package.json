@@ -1,8 +1,11 @@
 {
   "name": "ik-hooks",
   "private": false,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "IK hooks is a collection of custom React hooks designed to enhance your development experience by providing useful utilities for common tasks",
+  "publishConfig": {
+    "tag": "pre-release"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -10,10 +13,6 @@
   "scripts": {
     "build": "tsup",
     "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/islam-kamel/ik-hooks"
   },
   "keywords": [
     "ik hooks",
@@ -27,6 +26,10 @@
   ],
   "author": "Islam Kamel",
   "license": "MIT",
+  "repository": {
+    "type": "GitHub",
+    "url": "https://github.com/islam-kamel/ik-hooks"
+  },
   "bugs": {
     "url": "https://github.com/islam-kamel/ik-hooks/issues"
   },
@@ -54,8 +57,12 @@
     "jsdom": "^24.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "socket.io": "^4.7.5",
     "ts-jest": "^29.1.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.7.5"
   }
 }

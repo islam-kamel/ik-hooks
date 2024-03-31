@@ -2,9 +2,12 @@
 /node_modules
 /example
 /.idea
+/.github
 
 
 .DS_Store
 
 tsconfig.json
 tsup.config.ts
+jest.config.js
+.yarnclean

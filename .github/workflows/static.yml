@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,10 +31,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-#      - name: Install Deps
-#        run: cd example && yarn install
-#      - name: build
-#        run: cd example && npm link ../. && yarn build
+      - name: Install Deps
+        run: cd example && yarn install
+      - name: build
+        run: cd example && yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
