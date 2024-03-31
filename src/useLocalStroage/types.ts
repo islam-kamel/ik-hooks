@@ -13,5 +13,6 @@ export type Remove = (options?: RemoveArgsType) => void;
 export type UseLocalStorageReturnType<T> = [
     value: T,
     set: DispatchType<T, T>,
-    remove: Remove
+    remove: Remove,
+    get: () => T | null
 ];

@@ -44,6 +44,10 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
         return newValue as T;
     }, [])
 
+    const getStorage = useCallback(() => {
+        return getItem<T>(key)
+    }, [])
+
     /**
      * Removes the item from the local storage.
      * @default reset - true
@@ -64,10 +68,10 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
     // Effect to initialize the state from the local storage.
     useEffect(() => {
         const item = getItem<T>(key)
-        _setValue(item || initialValue)
-    }, [initialValue])
+        if (item) _setValue(item)
+    }, [])
 
-    return [value, setValue, remove]
+    return [value, setValue, remove, getStorage]
 }
 
 export {useLocalStorage}
