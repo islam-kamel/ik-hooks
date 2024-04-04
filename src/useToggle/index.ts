@@ -29,7 +29,7 @@ const useToggle = (initialValue: boolean = false): [value: boolean, (value?: boo
 
     useEffect(() => {
         setValue(initialValue);
-    }, []);
+    }, [initialValue]);
 
     return [value, toggle];
 }

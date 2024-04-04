@@ -1,7 +1,7 @@
 {
   "name": "ik-hooks",
   "private": false,
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "IK hooks is a collection of custom React hooks designed to enhance your development experience by providing useful utilities for common tasks",
   "publishConfig": {
     "access": "public",
@@ -19,12 +19,14 @@
   "keywords": [
     "ik hooks",
     "ik-hooks",
-    "useLocalStorage",
+    "react-hooks",
+    "typscript",
+    "front-end",
     "js",
     "javascript",
     "hooks",
     "react",
-    "ReactJs"
+    "reactJs"
   ],
   "author": "Islam Kamel",
   "license": "MIT",
@@ -40,17 +42,18 @@
     "node": ">=12"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "socket.io-client": ">=3"
   },
   "devDependencies": {
     "@testing-library/react": "^14.2.2",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
-    "@types/react": "^18.2.73",
-    "@types/react-dom": "^18.2.23",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
@@ -60,11 +63,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "ts-jest": "^29.1.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
-  },
-  "dependencies": {
-    "socket.io-client": "^4.7.5"
   }
 }

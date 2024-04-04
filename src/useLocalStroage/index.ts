@@ -15,7 +15,7 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
     const [value, _setValue] = useState<T>(initialValue)
 
 
-    const _setValueFormCallback = (value: SetValueCallbackType<T>): T => {
+    const _setValueFormCallback = useCallback((value: SetValueCallbackType<T>): T => {
         let newValue = null;
 
         _setValue(prev => {
@@ -25,7 +25,7 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
         })
 
         return newValue as T;
-    }
+    }, [key])
 
 
     /**
@@ -37,16 +37,16 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
     const setValue = useCallback((value: ValueType<T> | SetValueCallbackType<T>): T => {
         if (value instanceof Function) return _setValueFormCallback(value);
 
-        let newValue = value;
+        const newValue = value;
         setItem(value, key);
         _setValue(value);
 
         return newValue as T;
-    }, [])
+    }, [_setValueFormCallback, key])
 
     const getStorage = useCallback(() => {
         return getItem<T>(key)
-    }, [])
+    }, [key])
 
     /**
      * Removes the item from the local storage.
@@ -63,13 +63,13 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
         setValue(initialValue)
         _setValue(initialValue)
         return;
-    }, [])
+    }, [initialValue, key, setValue])
 
     // Effect to initialize the state from the local storage.
     useEffect(() => {
         const item = getItem<T>(key)
         if (item) _setValue(item)
-    }, [])
+    }, [key])
 
     return [value, setValue, remove, getStorage]
 }
