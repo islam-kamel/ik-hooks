@@ -107,7 +107,7 @@ function UseToggle() {
     setSocketValue(data);
   }, []);
   
-  useSocketEvent({event: "event-name", socketProvider: mySocket, debug: true}) // debug is optional and when true will console.log the '[socket] event-name'
+  useSocketEvent({event: "event-name", callback:socketCallback, socketProvider: mySocket, debug: true}) // debug is optional and when true will console.log the '[socket] event-name'
   return (
     <>
       <h2>useSocketEvent</h2>
