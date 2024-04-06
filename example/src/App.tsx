@@ -3,6 +3,7 @@ import ikLogo from './assets/logo-light.svg'
 import './App.css'
 import UseLocalStorage from "./components/UseLocalStorage.tsx";
 import UseToggle from "./components/UseToggle.tsx";
+import UseConfirm from "./components/UseConfirm.tsx";
 
 function App() {
     return (
@@ -16,9 +17,10 @@ function App() {
                 </a>
             </div>
             <h1>IK Hooks</h1>
-            <section><UseLocalStorage/></section>
             <hr/>
+            <section><UseLocalStorage/></section>
             <section><UseToggle/></section>
+            <section><UseConfirm/></section>
             <p className="quote">
                 Welcome! Feel free to open an issue or submit a pull request for new features, bug fixes, or
                 improvements. Please ensure that your code adheres to the existing coding style and conventions.

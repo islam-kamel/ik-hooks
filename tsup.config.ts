@@ -2,6 +2,7 @@ import {defineConfig} from "tsup"
 
 export default defineConfig({
     format: ["esm", "cjs"],
+    platform: "browser",
     entry: ["src/index.ts"],
     dts: true,
     // shims: true,

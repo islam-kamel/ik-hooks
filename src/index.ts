@@ -1,5 +1,4 @@
-import {useLocalStorage} from "./useLocalStroage";
-import {useToggle} from "./useToggle";
-import {useSocketEvent} from "./useSocketEvent";
-
-export {useLocalStorage, useToggle, useSocketEvent}
+export {useLocalStorage} from "./useLocalStorage";
+export {useToggle} from "./useToggle";
+export {useSocketEvent} from "./useSocketEvent";
+export {useConfirm} from "./useConfirm";
