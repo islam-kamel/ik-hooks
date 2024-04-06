@@ -1181,10 +1181,10 @@ ignore@^5.2.0, ignore@^5.2.4:
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.3.0.tgz"
   integrity sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==
 
-ik-hooks@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/ik-hooks/-/ik-hooks-0.3.5.tgz#b4c1dd44fa78a8aa01a8558f9ef5503c4a50c7e5"
-  integrity sha512-fVVygPpPU8wqRrvJHoM9D4Soi9i2XEgxRBCi4rCaLRElPQkBBb/KcjCE9h1xZWbxkYUfaEQe+PRL2m+htypvdg==
+ik-hooks@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/ik-hooks/-/ik-hooks-0.3.6.tgz#37ac19a1c0f6a1bfb0b6615380348b96d713e768"
+  integrity sha512-9Eij+MeSkv+PsyMSOtEDJVX9n7aCoPPO+aRqr1hbqyYYKt6cOVqbe5VmpqDWmr9Rg3whVj65Yxla0X1/U6X6bA==
 
 import-fresh@^3.2.1:
   version "3.3.0"

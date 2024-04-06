@@ -1,5 +1,4 @@
 import {useConfirm} from "ik-hooks";
-
 function UseConfirm() {
     const {dialog, toggle} = useConfirm({
         onConfirm: () => console.log("confirmed"),
