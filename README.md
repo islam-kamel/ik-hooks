@@ -36,35 +36,57 @@ Simply import the desired hook into your React component and start using it righ
 ## useLocalStorage
 
 ```javascript
-import React from 'react';
 import {useLocalStorage} from "ik-hooks";
+import {useCallback, useEffect} from "react";
 
 function UseLocalStorage() {
-  const [count, setCount, remove] = useLocalStorage('count', 0)
 
-  const onUp = () => {
-    setCount(prev => {
-      return prev + 1
+  const {value: count, remove, set: setCount, get: getCount, processing, getAsyncValue} = useLocalStorage('count', 0)
+
+  const onReset = useCallback(() => {
+    remove()
+  }, [remove])
+
+  const onRemove = useCallback(() => {
+    remove({reset: false})
+  }, [remove])
+
+  useEffect(() => {
+    console.log("get Storage", getCount())
+  }, [getCount]);
+
+  useEffect(() => {
+    getAsyncValue().then(value => {
+      console.log("getAsyncValue", value)
     })
-  }
-  const onReset = () => remove()
-  const onRemove = () => remove({reset: false})
+  }, [getAsyncValue]);
+
+  useEffect(() => {
+    console.log("here")
+  }, []);
 
   return (
-    <>
-      <h1>Count: {count}</h1>
-
-      <button onClick={() => {
-        setCount(prev => {
-          return prev + 1
-        })
-      }}>
-        Count Up
-      </button>
-      <button onClick={onReset}>Rest</button>
-      <button onClick={onRemove}>Remove</button>
-    </>
-  )
+          <>
+            <h2>useLocalStorage</h2>
+            <div className="card">
+              <button onClick={() => {
+                setCount(prevState => prevState + 1)
+              }}>
+                {processing ? 'Processing...' : <>count is {count}</>}
+              </button>
+              <button
+                      onClick={onReset}
+              >
+                Rest
+              </button>
+              <button
+                      onClick={onRemove}
+              >
+                Remove
+              </button>
+            </div>
+          </>
+  );
 }
 
 export default UseLocalStorage; 

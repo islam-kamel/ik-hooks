@@ -3,6 +3,7 @@ import {getItem, removeItem, setItem} from "./utils";
 import {KeyType, RemoveArgsType, UseLocalStorageReturnType, ValueType} from "./types";
 import {SetValueCallbackType} from "../types";
 
+let timer: NodeJS.Timeout;
 
 /**
  * useLocalStorage React Hook for managing state with local storage.
@@ -13,13 +14,18 @@ import {SetValueCallbackType} from "../types";
  */
 const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalStorageReturnType<T> => {
     const [value, _setValue] = useState<T>(initialValue)
+    const [processing, setProcessing] = useState<boolean>(true)
 
 
     const _setValueFormCallback = useCallback((value: SetValueCallbackType<T>): T => {
         let newValue = null;
 
         _setValue(prev => {
-            newValue = value(prev);
+            if (value instanceof Function) {
+                newValue = value(prev);
+            } else {
+                newValue = value;
+            }
             setItem(newValue, key);
             return newValue;
         })
@@ -48,6 +54,15 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
         return getItem<T>(key)
     }, [key])
 
+    const getAsyncValue = useCallback(async () => {
+        return new Promise<T | null>((resolve) => {
+            setTimeout(() => {
+                const item = getItem<T>(key)
+                resolve(item)
+            }, 100)
+        })
+    }, [key])
+
     /**
      * Removes the item from the local storage.
      * @default reset - true
@@ -67,11 +82,17 @@ const useLocalStorage = <T>(key: KeyType, initialValue: ValueType<T>): UseLocalS
 
     // Effect to initialize the state from the local storage.
     useEffect(() => {
-        const item = getItem<T>(key)
-        if (item) _setValue(item)
-    }, [key])
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            const item = getItem<T>(key)
+            if (item) _setValue(item)
+            else setValue(initialValue)
+            setProcessing(false)
+        }, 100)
+    }, [initialValue, key, setValue])
 
-    return [value, setValue, remove, getStorage]
+    return {value, set: setValue, remove, get: getStorage, getAsyncValue, processing}
+    // return [value, setValue, remove, getStorage]
 }
 
 export {useLocalStorage}

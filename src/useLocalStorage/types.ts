@@ -10,9 +10,12 @@ export interface RemoveArgsType {
 // make options as optional
 export type Remove = (options?: RemoveArgsType) => void;
 
-export type UseLocalStorageReturnType<T> = [
+export type UseLocalStorageReturnType<T> = {
     value: T,
     set: DispatchType<T, T>,
     remove: Remove,
-    get: () => T | null
-];
+    get: () => T | null,
+    processing: boolean,
+    getAsyncValue: () => Promise<T | null>
+
+};

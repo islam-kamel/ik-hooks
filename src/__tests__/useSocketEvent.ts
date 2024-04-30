@@ -7,7 +7,6 @@ import {Server} from "socket.io";
 import {useSocketEvent} from "../useSocketEvent";
 import {renderHook} from "@testing-library/react";
 
-// This should be at the top of your test file
 global.setImmediate = async (callback) => {
     return new Promise((resolve) => {
         setTimeout(() => {

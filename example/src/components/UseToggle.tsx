@@ -6,7 +6,7 @@ function UseToggle() {
     return (
         <>
             <h2>useToggle</h2>
-            <button onClick={() => toggle(prev => !prev)}>
+            <button onClick={() => toggle()}>
                 {isOpen ? 'Open' : 'Close'}
             </button>
         </>

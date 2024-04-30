@@ -7,22 +7,20 @@ import {SetValueCallbackType} from "../types";
  * @param {boolean} initialValue - The initial value.
  * @returns {[boolean, Function]} The current value and a function to toggle it.
  */
-const useToggle = (initialValue: boolean = false): [value: boolean, (value?: boolean | SetValueCallbackType<boolean>) => void] => {
-    const [value, setValue] = useState(initialValue);
+const useToggle = (initialValue: boolean = false): [value: boolean, (value?: SetValueCallbackType<boolean>) => void] => {
+    const [value, setValue] = useState<boolean>(initialValue);
 
     /**
      * Toggles the value.
-     * @param {boolean | ((state: boolean) => boolean)} value - The new value or a function to update the current value.
      */
-    const toggle = useCallback((value?: boolean | SetValueCallbackType<boolean>) => {
+    const toggle = useCallback((value?: SetValueCallbackType<boolean> ) => {
         if (value instanceof Function) {
             setValue(value);
             return;
-        } else if (value) {
+        } else if (typeof value === "boolean") {
             setValue(value);
             return;
         }
-
         setValue(prev => !prev);
     }, [])
 

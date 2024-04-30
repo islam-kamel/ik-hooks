@@ -3,7 +3,7 @@ import {useCallback, useEffect} from "react";
 
 function UseLocalStorage() {
 
-    const [count, setCount, remove, getStorage] = useLocalStorage('count', 0)
+    const {value: count, remove, set: setCount, get: getCount, processing, getAsyncValue} = useLocalStorage('count', 0)
 
     const onReset = useCallback(() => {
         remove()
@@ -14,19 +14,27 @@ function UseLocalStorage() {
     }, [remove])
 
     useEffect(() => {
-        console.log("get Storage", getStorage())
-    }, [getStorage]);
+        console.log("get Storage", getCount())
+    }, [getCount]);
+
+    useEffect(() => {
+        getAsyncValue().then(value => {
+            console.log("getAsyncValue", value)
+        })
+    }, [getAsyncValue]);
+
+    useEffect(() => {
+        console.log("here")
+    }, []);
 
     return (
         <>
             <h2>useLocalStorage</h2>
             <div className="card">
                 <button onClick={() => {
-                    setCount(prev => {
-                        return prev + 1
-                    })
+                    setCount(prevState => prevState + 1)
                 }}>
-                    count is {count}
+                    {processing ? 'Processing...' : <>count is {count}</>}
                 </button>
                 <button
                     onClick={onReset}
