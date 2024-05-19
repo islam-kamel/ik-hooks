@@ -1,18 +1,15 @@
-import {DispatchType} from "../types";
-
-export type KeyType = string
-export type ValueType<T> = T
+import {SetStateAction} from "react";
 
 export interface RemoveArgsType {
-    reset?: boolean;
+  reset?: boolean;
 }
 
 // make options as optional
 export type Remove = (options?: RemoveArgsType) => void;
 
-export type UseLocalStorageReturnType<T> = [
-    value: T,
-    set: DispatchType<T, T>,
-    remove: Remove,
-    get: () => T | null
-];
+export type UseLocalStorageReturnType<T> = {
+  value: T,
+  getValue: () => T | null
+  setValue: (value: T | SetStateAction<T>) => T,
+  removeValue: Remove,
+};
