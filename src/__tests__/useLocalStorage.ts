@@ -1,68 +1,87 @@
 import {act, renderHook} from '@testing-library/react'
 import {useLocalStorage} from "../index";
+import {UseLocalStorageReturnType} from "../useLocalStorage/types";
+
+type MainType = UseLocalStorageReturnType<string>;
+type SetValue = MainType["setValue"];
+type Remove = MainType["removeValue"];
+type GetValue = MainType["getValue"];
+type Value = MainType["value"];
+
 
 describe('useLocalStorage', () => {
-    beforeEach(() => {
-        localStorage.clear()
+  let removeValue: Remove, setValue: SetValue, value: Value, getValue: GetValue
+  beforeEach(() => {
+    removeValue();
+  })
+  beforeAll(() => {
+    const {result} = renderHook(() => useLocalStorage('test', 'initial'))
+    removeValue = result.current.removeValue;
+    setValue = result.current.setValue;
+    value = result.current.value;
+    getValue = result.current.getValue;
+  })
+
+  it('returns initial value when local storage is empty', () => {
+    expect(value).toBe('initial')
+  })
+
+  it('returns stored value when local storage is not empty', () => {
+    localStorage.setItem('notEmpty', JSON.stringify('stored'))
+    const {result} = renderHook(() => useLocalStorage('notEmpty', 'initial'))
+
+    expect(result.current.value).toBe('stored')
+  })
+
+  it('updates the value in local storage when set', () => {
+    act(() => {
+      setValue('updated')
     })
 
-    it('returns initial value when local storage is empty', () => {
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
+    setTimeout(() => {
 
-        expect(result.current[0]).toBe('initial')
+      expect(value).toBe('updated')
+      expect(localStorage.getItem('test')).toBe(JSON.stringify('updated'))
+    })
+  })
+
+  it('updates the value in local storage when set with a function', () => {
+    act(() => {
+      setValue((prev) => `${prev} updated`)
     })
 
-    it('returns stored value when local storage is not empty', () => {
-        localStorage.setItem('test', JSON.stringify('stored'))
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
+    setTimeout(() => {
 
-        expect(result.current[0]).toBe('stored')
+      expect(value).toBe('initial updated')
+      expect(localStorage.getItem('test')).toBe(JSON.stringify('initial updated'))
+    }, 0)
+  })
+
+  it("resets the value in local storage when reset", () => {
+    act(() => {
+      setValue("updated")
+      removeValue({reset: true})
     })
 
-    it('updates the value in local storage when set', () => {
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
-
-        act(() => {
-            result.current[1]('updated')
-        })
-
-        expect(result.current[0]).toBe('updated')
-        expect(localStorage.getItem('test')).toBe(JSON.stringify('updated'))
+    setTimeout(() => {
+      expect(value).toBe('initial')
+      expect(localStorage.getItem('test')).toBe(JSON.stringify('initial'))
     })
+  })
 
-    it('updates the value in local storage when set with a function', () => {
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
-
-        act(() => {
-            result.current[1]((prev) => `${prev} updated`)
-        })
-
-        expect(result.current[0]).toBe('initial updated')
-        expect(localStorage.getItem('test')).toBe(JSON.stringify('initial updated'))
+  it('deletes the value in local storage when removed', () => {
+    act(() => {
+      setValue("updated")
+      removeValue({reset: false})
     })
+    setTimeout(() => {
+      expect(value).toBe(null)
+      expect(localStorage.getItem('test')).toBe(null)
+    }, 0)
+  })
 
-    it("resets the value in local storage when reset", () => {
-        localStorage.setItem('test', JSON.stringify('stored'))
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
-
-        act(() => {
-            result.current[1]("updated")
-            result.current[2]({reset: true})
-        })
-
-        expect(result.current[0]).toBe('initial')
-        expect(localStorage.getItem('test')).toBe(JSON.stringify('initial'))
-    })
-
-    it('deletes the value in local storage when removed', () => {
-        localStorage.setItem('test', JSON.stringify('stored'))
-        const {result} = renderHook(() => useLocalStorage('test', 'initial'))
-
-        act(() => {
-            result.current[2]({reset: false})
-        })
-
-        expect(result.current[0]).toBe(null)
-        expect(localStorage.getItem('test')).toBe(null)
-    })
+  it('returns the value from local storage', () => {
+    localStorage.setItem('test', JSON.stringify('stored'))
+    expect(getValue()).toBe('stored')
+  })
 })

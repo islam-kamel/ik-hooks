@@ -12,6 +12,10 @@ projects.
   values with ease.
 - **useSocketEvent**: A hook for handling real-time data updates using WebSockets. Subscribe to specific events and
   receive updates in real-time and execute callback fn with args.
+- **useConfirm**: A hook for displaying confirmation dialogs to users. Prompt users to confirm or cancel an action
+  before proceeding.
+- **useAsync** (experimental): A hook for handling asynchronous operations. Simplify the process of fetching data from APIs and
+  displaying loading indicators while waiting for the response.
 
 _(More hooks to be added in future releases)_
 
@@ -40,7 +44,12 @@ import React from 'react';
 import {useLocalStorage} from "ik-hooks";
 
 function UseLocalStorage() {
-  const [count, setCount, remove] = useLocalStorage('count', 0)
+  // new way
+  // use object destructuring instead of array destructuring
+  const {value: count, removeValue: remove, setValue: setCount, getValue} = useLocalStorage('count', 0)
+
+  // old way
+  // const [count, setCount, remove] = useLocalStorage('count', 0)
 
   const onUp = () => {
     setCount(prev => {
@@ -102,12 +111,12 @@ const mySocket = io("http://localhost:3000");
 
 function UseToggle() {
   const [socketValue, setSocketValue] = useState(null);
-  
+
   const socketCallback = useCallback((data) => {
     setSocketValue(data);
   }, []);
-  
-  useSocketEvent({event: "event-name", callback:socketCallback, socketProvider: mySocket, debug: true}) // debug is optional and when true will console.log the '[socket] event-name'
+
+  useSocketEvent({event: "event-name", callback: socketCallback, socketProvider: mySocket, debug: true}) // debug is optional and when true will console.log the '[socket] event-name'
   return (
     <>
       <h2>useSocketEvent</h2>
@@ -127,30 +136,71 @@ export default UseToggle;
 import {useConfirm} from "ik-hooks";
 
 function UseConfirm() {
-    const {dialog, toggle} = useConfirm({
-        onConfirm: () => console.log("confirmed"),
-        onCancel: () => console.log("canceled"), // Optional
-        message: "Are you sure ?", // Optional
-        dialog: ({open, onCancel, onConfirm, message}) => (
-            <dialog open={open}>
-                <p>{message}</p>
-                <p>Custom Dialog</p>
-                <button onClick={onConfirm}>Confirm</button>
-                <button onClick={onCancel}>Cancel</button>
-            </dialog>
-        ), // Optional Custom Component
-    });
+  const {dialog, toggle} = useConfirm({
+    onConfirm: () => console.log("confirmed"),
+    onCancel: () => console.log("canceled"), // Optional
+    message: "Are you sure ?", // Optional
+    dialog: ({open, onCancel, onConfirm, message}) => (
+      <dialog open={open}>
+        <p>{message}</p>
+        <p>Custom Dialog</p>
+        <button onClick={onConfirm}>Confirm</button>
+        <button onClick={onCancel}>Cancel</button>
+      </dialog>
+    ), // Optional Custom Component
+  });
 
-    return (
-        <>
-            <h2>useConfirm</h2>
-            <button onClick={() => toggle()}>Open Dialog</button>
-            {dialog}
-        </>
-    );
+  return (
+    <>
+      <h2>useConfirm</h2>
+      <button onClick={() => toggle()}>Open Dialog</button>
+      {dialog}
+    </>
+  );
 }
 
 export default UseConfirm;
+```
+
+## useAsync (experimental)
+
+```javascript
+import {_useAsync} from "ik-hooks";
+
+function UseAsync() {
+  const {value: allData, inProgress: allDataProgress, execute} = _useAsync < {
+    title: string,
+    id: number,
+    completed: boolean
+  }[] > (fetchAllData)
+
+  return (
+    <div>
+      <h2>Use Async</h2>
+      <button onClick={execute}>Reload Todos</button>
+      <div style={{
+        marginTop: 20,
+        display: "flex",
+        justifyContent: "start",
+        flexDirection: "column",
+        gap: 0,
+      }}>
+        <div style={{textAlign: "start"}}>
+          {allDataProgress ? "Loading..." : (
+            <div className={"cards"}>
+              <div className={"cards-body"}>
+                {allData?.map((item: { id: number; title: string; completed: boolean; }) => <TodoItem todo={item}
+                                                                                                      key={item.id}/>)}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default UseAsync;
 ```
 
 ## Hooks Structure

@@ -1,7 +1,7 @@
 {
   "name": "ik-hooks",
   "private": false,
-  "version": "0.3.6",
+  "version": "0.3.9",
   "description": "IK hooks is a collection of custom React hooks designed to enhance your development experience by providing useful utilities for common tasks",
   "publishConfig": {
     "access": "public",

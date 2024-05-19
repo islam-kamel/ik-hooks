@@ -1,0 +1,17 @@
+@mixin grid-col($col) {
+  flex: 0 0 auto;
+  width: 100% / 12 * $col;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    @include grid-col($i);
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
